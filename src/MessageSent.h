@@ -6,8 +6,9 @@
 #define CSV_HANDLER_MESSAGESENT_H
 
 #include "position.h"
-#include "MessageReceived.h"
 #include <map>
+
+class MessageReceived;
 
 class MessageSent {
 public:

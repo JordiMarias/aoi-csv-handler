@@ -12,12 +12,13 @@ Vehicle &Database::create_vehicle(const int &station_id) {
     if (vehicles_.find(station_id) == vehicles_.end()) {
         vehicles_.insert(std::make_pair(station_id, Vehicle(station_id)));
     }
-    return vehicles_[station_id];
+    Vehicle& to_return = vehicles_.at(station_id);
+    return to_return;
 }
 
 Vehicle &Database::get_vehicle(const int &station_id) {
     if (vehicles_.find(station_id) != vehicles_.end()) {
-        return vehicles_[station_id];
+        return vehicles_.at(station_id);
     }
     return create_vehicle(station_id);
 }
