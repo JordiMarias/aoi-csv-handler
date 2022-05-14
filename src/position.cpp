@@ -24,3 +24,25 @@ const float& Position::get_latitude() const{
 const float& Position::get_longitude() const{
     return longitude;
 }
+
+const float& Position::get_simulation_time() const{
+    return simulation_time;
+}
+
+bool Position::operator<(const Position &rhs) const {
+    if (simulation_time < rhs.simulation_time)
+        return true;
+    return false;
+}
+
+bool Position::operator>(const Position &rhs) const {
+    return rhs < *this;
+}
+
+bool Position::operator<=(const Position &rhs) const {
+    return !(rhs < *this);
+}
+
+bool Position::operator>=(const Position &rhs) const {
+    return !(*this < rhs);
+}

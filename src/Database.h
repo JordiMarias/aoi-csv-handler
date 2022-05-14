@@ -13,6 +13,7 @@ public:
     Database();
     Vehicle& create_vehicle(const int& station_id);
     Vehicle& get_vehicle(const int& station_id);
+    void sort_data();
 private:
     std::map<int, Vehicle> vehicles_;
 };

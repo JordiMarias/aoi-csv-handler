@@ -21,3 +21,9 @@ Vehicle &Database::get_vehicle(const int &station_id) {
     }
     return create_vehicle(station_id);
 }
+
+void Database::sort_data() {
+    for (auto& veh_pair : vehicles_){
+        veh_pair.second.sort_data();
+    }
+}

@@ -14,6 +14,11 @@ public:
     const float& get_y() const;
     const float& get_latitude() const;
     const float& get_longitude() const;
+    const float& get_simulation_time() const;
+    bool operator<(const Position &rhs) const;
+    bool operator>(const Position &rhs) const;
+    bool operator<=(const Position &rhs) const;
+    bool operator>=(const Position &rhs) const;
 private:
     float simulation_time;
     float x;

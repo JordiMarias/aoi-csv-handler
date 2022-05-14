@@ -11,16 +11,22 @@
 
 class MessageSent {
 public:
-    MessageSent();
-    MessageSent(float etsi_time, Position position);
+    MessageSent(float etsi_t, Position pos);
     const Position& get_position() const;
     const float& get_etsi_time() const;
+
+    bool operator<(const MessageSent &rhs) const;
+
+    bool operator>(const MessageSent &rhs) const;
+
+    bool operator<=(const MessageSent &rhs) const;
+
+    bool operator>=(const MessageSent &rhs) const;
+
 private:
     float etsi_time;
     Position position;
     std::map<int, MessageReceived&> message_received_;
-
-
 };
 
 

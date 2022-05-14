@@ -6,7 +6,7 @@
 
 MessageSent Vehicle::empty_message_sent(0, Position(0,0,0,0,0));
 
-Vehicle::Vehicle(int station_id) : station_id(station_id) {
+Vehicle::Vehicle(int station_i) : station_id(station_i) {
 }
 
 MessageSent& Vehicle::create_message_sent(Position position, float etsi_time) {
@@ -35,4 +35,14 @@ MessageSent& Vehicle::get_message_sent(const Position& position, const float& se
 
 void Vehicle::add_real_position(Position position) {
     real_positions.insert(real_positions.end(), position);
+}
+
+const int& Vehicle::get_station_id() const{
+    return station_id;
+}
+
+void Vehicle::sort_data() {
+    messages_sent.sort();
+    messages_received.sort();
+    real_positions.sort();
 }
