@@ -6,8 +6,10 @@
 
 //Position::Position() {}
 
-Position::Position(float simulation_time, float x, float y, float latitude, float longitude): simulation_time(simulation_time),
-x(x), y(y), latitude(latitude), longitude(longitude){}
+Position::Position(float simulation_time, float x, float y, float latitude, float longitude,
+                   float speed_x, float speed_y, float acceleration_x, float acceleration_y): simulation_time(simulation_time),
+x(x), y(y), latitude(latitude), longitude(longitude), speed_x(speed_x),
+speed_y(speed_y), acceleration_x(acceleration_x), acceleration_y(acceleration_y){}
 
 const float& Position::get_x() const{
     return x;
@@ -16,6 +18,23 @@ const float& Position::get_x() const{
 const float& Position::get_y() const{
     return y;
 }
+
+const float& Position::get_speed_x() const{
+    return speed_x;
+}
+
+const float& Position::get_speed_y() const{
+    return speed_y;
+}
+
+const float& Position::get_acceleration_x() const{
+    return acceleration_x;
+}
+
+const float& Position::get_acceleration_y() const{
+    return acceleration_y;
+}
+
 
 const float& Position::get_latitude() const{
     return latitude;
@@ -45,4 +64,16 @@ bool Position::operator<=(const Position &rhs) const {
 
 bool Position::operator>=(const Position &rhs) const {
     return !(*this < rhs);
+}
+
+bool Position::operator==(const Position &rhs) const {
+    return simulation_time == rhs.simulation_time &&
+           x == rhs.x &&
+           y == rhs.y &&
+           latitude == rhs.latitude &&
+           longitude == rhs.longitude;
+}
+
+bool Position::operator!=(const Position &rhs) const {
+    return !(rhs == *this);
 }

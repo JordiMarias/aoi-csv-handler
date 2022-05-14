@@ -13,11 +13,13 @@ class Vehicle {
 public:
     Vehicle(int station_id);
     MessageSent& create_message_sent(Position position, float etsi_time);
-    MessageReceived& create_message_received(float simulation_time, int origin_station_id);
+    MessageReceived& create_message_received(float simulation_time, int source_station_id, int origin_station_id);
     void add_real_position(Position position);
     const int& get_station_id() const;
     MessageSent& get_message_sent(const Position& position, const float& sent_etsi_time);
     void sort_data();
+    std::list<const MessageReceived*> get_messages_received_from(const int& station_id) const;
+    const std::list<Position>& get_positions() const;
 private:
     static MessageSent empty_message_sent;
     int station_id;

@@ -12,6 +12,7 @@
 #include <regex>
 #include "Database.h"
 #include "csv_parser.h"
+#include "AoICalculator.h"
 
 namespace po = boost::program_options;
 
@@ -67,11 +68,6 @@ int main(int argc, char * argv[]) {
         exit(1);
     }
     database.sort_data();
-
-}
-
-
-
-
-    
+    AoICalculator calculator = AoICalculator();
+    calculator.compute_and_dump_values(database);
 }

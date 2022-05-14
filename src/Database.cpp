@@ -27,3 +27,17 @@ void Database::sort_data() {
         veh_pair.second.sort_data();
     }
 }
+
+std::map<int, std::list<int>> Database::make_pairs(){
+    std::map<int, std::list<int>> to_return;
+    for (const auto& vehicle : vehicles_){
+        std::list<int> related_stations;
+        for (const auto& vehicle2 : vehicles_){
+            if (vehicle2.first != vehicle.first){
+                related_stations.push_back(vehicle2.first);
+            }
+        }
+        to_return.insert(std::make_pair(vehicle.first,related_stations));
+    }
+    return to_return;
+}

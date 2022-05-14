@@ -13,6 +13,7 @@ add_executable(csv-handler
         MessageSent.cpp
         position.cpp
         Vehicle.cpp
+        AoICalculator.cpp
         )
 
 target_link_libraries(csv-handler Boost::program_options)

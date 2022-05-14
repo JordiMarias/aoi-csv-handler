@@ -14,6 +14,8 @@ public:
     Vehicle& create_vehicle(const int& station_id);
     Vehicle& get_vehicle(const int& station_id);
     void sort_data();
+    std::map<int, std::list<int>> make_pairs();
+
 private:
     std::map<int, Vehicle> vehicles_;
 };

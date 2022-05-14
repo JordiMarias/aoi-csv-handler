@@ -3,6 +3,7 @@
 //
 
 #include "MessageSent.h"
+#include "MessageReceived.h"
 
 //MessageSent::MessageSent(){}
 MessageSent::MessageSent(float etsi_t, Position pos) :
@@ -30,4 +31,13 @@ bool MessageSent::operator<=(const MessageSent &rhs) const {
 
 bool MessageSent::operator>=(const MessageSent &rhs) const {
     return !(*this < rhs);
+}
+
+void MessageSent::complete_position(Position pos){
+    position = pos;
+}
+
+void MessageSent::add_message_received(MessageReceived& messageReceived){
+    int source_station_id = messageReceived.get_source_station_id();
+    message_received_.insert(std::make_pair(source_station_id, &messageReceived));
 }
