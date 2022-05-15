@@ -54,6 +54,8 @@ int main(int argc, char * argv[]) {
             std::cout << entry.path() << std::endl;
             std::string path = entry.path();
             if (std::regex_search(path, sm, positioned_regex)) {
+                std::cout << sm[1] << std::endl;
+                std::cout << std::stoi(sm[1]) << std::endl;
                 positioned_file_map.insert(std::make_pair(std::stoi(sm[1]), path));
             } else if (std::regex_search(path, sm, sent_regex)) {
                 sent_file_map.insert(std::make_pair(std::stoi(sm[1]), path));
