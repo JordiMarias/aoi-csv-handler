@@ -35,6 +35,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
         sent_file.open(file_sent);
         if (sent_file.is_open()) {
             std::string line;
+            std::getline(sent_file, line);
             while (std::getline(sent_file, line)) {
                 if (std::regex_match(line, sm_f, sent_match_)) {
                     /*
@@ -67,6 +68,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
         positioned_file.open(file_positioned);
         if (positioned_file.is_open()) {
             std::string line;
+            std::getline(positioned_file, line);
             while (std::getline(positioned_file, line)) {
                 if (std::regex_match(line, sm, positioned_match_)) {
                     /*
@@ -117,6 +119,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
         Vehicle& vehicle = database.get_vehicle(station_id);
         if (received_file.is_open()){
             std::string line;
+            std::getline(received_file, line);
             while (std::getline(received_file, line)) {
                 if (std::regex_match(line, sm, received_match_)) {
                     /*
