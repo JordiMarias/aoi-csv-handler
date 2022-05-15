@@ -4,6 +4,7 @@
 
 #include "csv_parser.h"
 #include <map>
+#include <iostream>
 
 const std::regex CSVParser::positioned_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
 const std::regex CSVParser::positioned_file_{"(\\d+)_positioned\\.csv"};
@@ -24,6 +25,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
          * 1 station_id
          */
         // Stores simulation time and Etsi time
+        std::cout << "Parsing sent positioned" << std::endl;
         long station_id = std::stol(sm.str(1));
         Vehicle& vehicle = database.get_vehicle(station_id);
         std::map<float, MessageSent&> sent_file_map;
@@ -40,6 +42,12 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 5 X
                      * 6 Y
                      */
+                    std::cout << " - Sent Time: " << sm_f.str(1) << std::endl;
+                    std::cout << " - Simulation: " << sm_f.str(2) << std::endl;
+                    std::cout << " - Latitude: " << sm_f.str(3) << std::endl;
+                    std::cout << " - Longitude: " << sm_f.str(4) << std::endl;
+                    std::cout << " - X: " << sm_f.str(5) << std::endl;
+                    std::cout << " - Y: " << sm_f.str(6) << std::endl;
                     MessageSent& temp_message = vehicle.create_message_sent(Position(
                             std::stof(sm_f.str(2)),
                             std::stof(sm_f.str(5)),
@@ -50,6 +58,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                             ), std::stof(sm_f.str(1)));
                 }
             }
+            sent_file.close();
         }
         //Vehicle& vehicle = database.get_vehicle(station_id);
         positioned_file.open(file_positioned);
