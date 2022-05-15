@@ -46,8 +46,8 @@ int main(int argc, char * argv[]) {
         std::map<long, std::string> received_file_map;
         std::map<long, std::string> sent_file_map;
         std::regex positioned_regex("(\\d+)_positioned\\.csv$");
-        std::regex received_regex("(\\d+)_positioned\\.csv$");
-        std::regex sent_regex("(\\d+)_positioned\\.csv$");
+        std::regex received_regex("(\\d+)_received\\.csv$");
+        std::regex sent_regex("(\\d+)_sent\\.csv$");
         std::smatch sm;
         std::cout << "Checking all files" << std::endl;
         for (const auto &entry: std::filesystem::directory_iterator(vm["folder"].as<std::string>())) {
