@@ -76,6 +76,6 @@ int main(int argc, char * argv[]) {
     std::cout << "Create calculator" << std::endl;
     AoICalculator calculator = AoICalculator();
     std::cout << "Computing and dumping values" << std::endl;
-    calculator.compute_and_dump_values(database);
+    calculator.compute_and_dump_values(database, vm["folder"].as<std::string>());
     std::cout << "Everything done!" << std::endl;
 }

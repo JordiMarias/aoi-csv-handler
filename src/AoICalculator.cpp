@@ -4,6 +4,7 @@
 
 #include "AoICalculator.h"
 #include <cmath>
+#include <iostream>
 
 
 AoICalculator::AoICalculator() {}
@@ -98,7 +99,7 @@ float AoICalculator::compute_distance(const Position& pos1, const Position& pos2
 }
 
 
-void AoICalculator::compute_and_dump_values(Database& db){
+void AoICalculator::compute_and_dump_values(Database& db, const std::string& folder){
     std::map<long, std::list<long>> pairs = db.make_pairs();
     for (const auto& vehicles : pairs){
         for(const int& vehicles2 : vehicles.second){
@@ -106,10 +107,11 @@ void AoICalculator::compute_and_dump_values(Database& db){
             Vehicle& vehicle_b = db.get_vehicle(vehicles2);
             std::map<float, float> aoi = compute_aoi(vehicle_a, vehicle_b);
             std::map<float, float> paoi = compute_paoi(vehicle_a, vehicle_b);
-            std::string aoi_file = std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_aoi.csv";
-            std::string paoi_file = std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_paoi.csv";
+            std::string aoi_file = folder+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_aoi.csv";
+            std::string paoi_file = folder+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_paoi.csv";
+            std::cout << "Dumping to: " << aoi_file << std::endl;
             dump_values(aoi, aoi_file);
-            dump_values(aoi, aoi_file);
+            dump_values(aoi, paoi_file);
         }
     }
 }
