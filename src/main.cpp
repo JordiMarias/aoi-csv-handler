@@ -36,8 +36,11 @@ int main(int argc, char * argv[]) {
         std::cerr << "Error: " << exception.what() << std::endl;
         exit(1);
     }
+    std::cout << "Starting the AoI CSV Handler" << std::endl;
     Database database = Database();
+    std::cout << "Internal DB created" << std::endl;
     CSVParser csv_parser = CSVParser();
+    std::cout << "CSVParser created" << std::endl;
     try {
         std::map<int, std::string> positioned_file_map;
         std::map<int, std::string> received_file_map;
@@ -46,7 +49,7 @@ int main(int argc, char * argv[]) {
         std::regex received_regex("(\\d+)_positioned\\.csv$");
         std::regex sent_regex("(\\d+)_positioned\\.csv$");
         std::smatch sm;
-
+        std::cout << "Checking all files" << std::endl;
         for (const auto &entry: std::filesystem::directory_iterator(vm["folder"].as<std::string>())) {
             std::cout << entry.path() << std::endl;
             std::string path = entry.path();
@@ -58,6 +61,7 @@ int main(int argc, char * argv[]) {
                 received_file_map.insert(std::make_pair(std::stoi(sm[1]), path));
             }
         }
+        std::cout << "Starting to parse the CSV" << std::endl;
         for (const auto &positioned_file: positioned_file_map) {
             const int &station_id = positioned_file.first;
             csv_parser.parse_sent_positioned(sent_file_map[station_id], positioned_file.second, database);
@@ -67,7 +71,11 @@ int main(int argc, char * argv[]) {
         std::cerr << "Error: " << exception.what() << std::endl;
         exit(1);
     }
+    std::cout << "Sorting data" << std::endl;
     database.sort_data();
+    std::cout << "Create calculator" << std::endl;
     AoICalculator calculator = AoICalculator();
+    std::cout << "Computing and dumping values" << std::endl;
     calculator.compute_and_dump_values(database);
+    std::cout << "Everything done!" << std::endl;
 }
