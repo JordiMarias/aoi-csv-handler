@@ -64,9 +64,9 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
             }
             sent_file.close();
         }
-        //Vehicle& vehicle = database.get_vehicle(station_id);
         positioned_file.open(file_positioned);
         if (positioned_file.is_open()) {
+            std::cout << "Positioned file opened" << std::endl;
             std::string line;
             std::getline(positioned_file, line);
             while (std::getline(positioned_file, line)) {
@@ -90,7 +90,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 17 Penalty
                      * 18 CAM Sent
                      */
-                    sm.str(0);
+                    std::cout << "Position parsed: " << sm.str(1) << std::endl;
                     Position position = Position(std::stof(sm.str(1)),
                                                  std::stof(sm.str(5)),
                                                  std::stof(sm.str(6)),
