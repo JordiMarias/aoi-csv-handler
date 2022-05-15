@@ -54,10 +54,13 @@ int main(int argc, char * argv[]) {
             std::cout << entry.path() << std::endl;
             std::string path = entry.path();
             if (std::regex_search(path, sm, positioned_regex)) {
+                std::cout << "Inserting positioned" << std::endl;
                 positioned_file_map.insert(std::make_pair(std::stol(sm[1]), path));
             } else if (std::regex_search(path, sm, sent_regex)) {
+                std::cout << "Inserting sent" << std::endl;
                 sent_file_map.insert(std::make_pair(std::stol(sm[1]), path));
             } else if (std::regex_search(path, sm, received_regex)) {
+                std::cout << "Inserting received" << std::endl;
                 received_file_map.insert(std::make_pair(std::stol(sm[1]), path));
             }
         }
