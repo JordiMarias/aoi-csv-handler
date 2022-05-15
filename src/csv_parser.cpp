@@ -15,6 +15,9 @@ const std::regex CSVParser::received_file_{"(\\d+)_received\\.csv"};
 CSVParser::CSVParser(){}
 
 void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::string& file_positioned, Database& database) {
+    std::cout << "Parsing sent positioned" << std::endl;
+    std::cout << "Sent: " << file_sent << std::endl;
+    std::cout << "Positioned: " << file_positioned<< std::endl;
     std::fstream positioned_file;
     std::fstream sent_file;
     std::smatch sm;
