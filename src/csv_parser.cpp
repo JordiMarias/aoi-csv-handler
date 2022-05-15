@@ -7,11 +7,11 @@
 #include <iostream>
 
 const std::regex CSVParser::positioned_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
-const std::regex CSVParser::positioned_file_{"(\\d+)_positioned\\.csv"};
+const std::regex CSVParser::positioned_file_{"(\\d+)_positioned\\.csv$"};
 const std::regex CSVParser::sent_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
-const std::regex CSVParser::sent_file_{"(\\d+)_sent\\.csv"};
+const std::regex CSVParser::sent_file_{"(\\d+)_sent\\.csv$"};
 const std::regex CSVParser::received_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
-const std::regex CSVParser::received_file_{"(\\d+)_received\\.csv"};
+const std::regex CSVParser::received_file_{"(\\d+)_received\\.csv$"};
 CSVParser::CSVParser(){}
 
 void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::string& file_positioned, Database& database) {
@@ -22,8 +22,8 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
     std::fstream sent_file;
     std::smatch sm;
     std::smatch sm_f;
-    if (std::regex_match(file_positioned, sm, positioned_file_) &&
-            std::regex_match(file_sent, sm_f, sent_file_) && sm.str(1) == sm_f.str(1)){
+    if (std::regex_search(file_positioned, sm, positioned_file_) &&
+            std::regex_search(file_sent, sm_f, sent_file_) && sm.str(1) == sm_f.str(1)){
         /*
          * 1 station_id
          */
