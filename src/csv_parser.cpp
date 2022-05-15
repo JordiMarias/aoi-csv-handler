@@ -24,7 +24,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
          * 1 station_id
          */
         // Stores simulation time and Etsi time
-        int station_id = std::stoi(sm.str(1));
+        long station_id = std::stol(sm.str(1));
         Vehicle& vehicle = database.get_vehicle(station_id);
         std::map<float, MessageSent&> sent_file_map;
         sent_file.open(file_sent);
@@ -87,11 +87,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
                     vehicle.add_real_position(position);
-
-                    /*if (sm.str(18) == "1"){
-                        MessageSent messageSent = MessageSent(std::stof(sm.str(1)), 0, position);
-
-                    }*/
                 }
             }
             positioned_file.close();
@@ -105,7 +100,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
 
     if (std::regex_match(file_location, sm, received_file_))
     {
-        int station_id = std::stoi(sm.str(1));
+        long station_id = std::stol(sm.str(1));
         received_file.open(file_location);
         Vehicle& vehicle = database.get_vehicle(station_id);
         if (received_file.is_open()){
@@ -125,8 +120,8 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                      * 10 Destiny Y
                      */
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
-                    MessageReceived& messageReceived = vehicle.create_message_received(std::stof(sm.str(4)), station_id, std::stoi(sm.str(1)));
-                    MessageSent& corresponding_message = database.get_vehicle(std::stoi(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
+                    MessageReceived& messageReceived = vehicle.create_message_received(std::stof(sm.str(4)), station_id, std::stol(sm.str(1)));
+                    MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
                     if (corresponding_message.get_etsi_time() != 0){
                         corresponding_message.add_message_received(messageReceived);
                         messageReceived.set_message_sent(corresponding_message);

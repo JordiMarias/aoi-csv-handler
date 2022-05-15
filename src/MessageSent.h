@@ -28,7 +28,7 @@ public:
 private:
     float etsi_time;
     Position position;
-    std::map<int, MessageReceived*> message_received_;
+    std::map<long, MessageReceived*> message_received_;
 };
 
 

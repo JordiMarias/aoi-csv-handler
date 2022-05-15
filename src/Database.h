@@ -11,13 +11,13 @@
 class Database {
 public:
     Database();
-    Vehicle& create_vehicle(const int& station_id);
-    Vehicle& get_vehicle(const int& station_id);
+    Vehicle& create_vehicle(const long& station_id);
+    Vehicle& get_vehicle(const long& station_id);
     void sort_data();
-    std::map<int, std::list<int>> make_pairs();
+    std::map<long, std::list<long>> make_pairs();
 
 private:
-    std::map<int, Vehicle> vehicles_;
+    std::map<long, Vehicle> vehicles_;
 };
 
 
