@@ -3,6 +3,7 @@
 //
 
 #include "Database.h"
+#include <iostream>
 
 Database::Database(): vehicles_() {
 
@@ -24,6 +25,7 @@ Vehicle &Database::get_vehicle(const long &station_id) {
 }
 
 void Database::sort_data() {
+    std::cout << vehicles_.size() << std::endl;
     for (auto& veh_pair : vehicles_){
         veh_pair.second.sort_data();
     }
