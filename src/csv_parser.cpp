@@ -97,7 +97,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(13)),
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
-                    if (sm.str(1) == "1"){
+                    if (sm.str(18) == "1"){
                         std::cout << "Checking for a sent one" << std::endl;
                         int sent_time_index = (int)(std::stof(sm_f.str(1))*std::pow(10, 5));
                         if (sent_file_map.find(sent_time_index) != sent_file_map.end()){
