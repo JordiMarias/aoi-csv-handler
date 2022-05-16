@@ -72,18 +72,9 @@ bool Position::operator>=(const Position &rhs) const {
 }
 
 bool Position::operator==(const Position &rhs) const {
-    bool tt = simulation_time == rhs.simulation_time &&
-              x == rhs.x &&
-              y == rhs.y &&
-              latitude == rhs.latitude &&
-              longitude == rhs.longitude;
-    std::cout << "In comparison "<< tt << std::endl;
-    std::cout << "x: "<< (simulation_time == rhs.simulation_time) << std::endl;
-    std::cout << "x: "<< (x == rhs.x) << std::endl;
-    std::cout << "y: "<< (y == rhs.y) << std::endl;
-    std::cout << "latitude: "<< (latitude == rhs.latitude) << std::endl;
-    std::cout << "longitude: "<< (longitude == rhs.longitude) << std::endl;
-    return tt;
+    return simulation_time == rhs.simulation_time &&
+           latitude == rhs.latitude &&
+           longitude == rhs.longitude;
 }
 
 bool Position::operator!=(const Position &rhs) const {
