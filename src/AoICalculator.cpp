@@ -47,8 +47,10 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
         std::cout << "decent amount of messages received" << std::endl;
         float starting_point = messages_recv.front()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
+        std::cout << "After starting point" << std::endl;
         const std::list<Position>& positions = vehicle_a.get_positions();
-        std::list<Position>::iterator pos_iterator;
+        std::list<Position>::const_iterator pos_iterator = positions.begin();
+        std::cout << "now we have the const iterator" << std::endl;
         float temp_sim_time = 0;
         while (temp_sim_time<starting_point && pos_iterator!=positions.end()){
             ++pos_iterator;
