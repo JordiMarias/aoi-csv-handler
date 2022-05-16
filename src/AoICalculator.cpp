@@ -10,13 +10,17 @@
 AoICalculator::AoICalculator() {}
 
 std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, const Vehicle& vehicle_b){
+    std::cout << "Starting to compute the AoI" << std::endl;
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
+    std::cout << "Message Received size: " << messages_recv.size() << std::endl;
     if (messages_recv.size()>2){
         float starting_point = messages_recv.front()->get_simulation_time();
         float ending_point = messages_recv.back()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         float timepoint = starting_point;
+        std::cout << "Starting point: " << starting_point << std::endl;
+        std::cout << "Starting point: " << ending_point << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
         while (timepoint<ending_point){
             const MessageReceived* current_message = *it;
@@ -24,10 +28,12 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
             const MessageReceived* new_message = *it;
             --it;
             if(timepoint<new_message->get_simulation_time()){
-                float aoi = timepoint-current_message->get_message_send().get_etsi_time();
+                float aoi = timepoint-current_message->get_message_send().get_position().get_simulation_time();
+                std::cout << "Computed AoI Point: "<< aoi << std::endl;
                 to_return.insert(std::make_pair(timepoint, aoi));
             }else {
-                float aoi = timepoint - new_message->get_message_send().get_etsi_time();
+                float aoi = timepoint - new_message->get_message_send().get_position().get_simulation_time();
+                std::cout << "Computed AoI Point: "<< aoi << std::endl;
                 to_return.insert(std::make_pair(timepoint, aoi));
                 ++it;
                 if (it == messages_recv.end()) {
