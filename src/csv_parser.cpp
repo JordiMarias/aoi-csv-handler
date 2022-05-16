@@ -99,20 +99,16 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
 void CSVParser::parse_received(const std::string &file_location, Database &database) {
     std::fstream received_file;
     std::smatch sm;
-    std::cout << "Parse received: " << file_location << std::endl;
     if (std::regex_search(file_location, sm, received_file_))
     {
         long station_id = std::stol(sm.str(1));
-        std::cout << "Starting to parse received: "<< station_id << std::endl;
         received_file.open(file_location);
         Vehicle& vehicle = database.get_vehicle(station_id);
         if (received_file.is_open()){
-            std::cout << "file is opened" << std::endl;
             std::string line;
             std::getline(received_file, line);
             while (std::getline(received_file, line)) {
                 if (std::regex_match(line, sm, received_match_)) {
-                    std::cout << "Parsing line aa" << std::endl;
                     /*
                      * 1 Station ID
                      * 2 Sent Time
@@ -128,7 +124,6 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
                     MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
                     if (corresponding_message.get_etsi_time() != 0){
-                        std::cout << "there is a corresponding message" << std::endl;
                         float sent_time = std::stof(sm.str(2));
                         float received_time = std::stof(sm.str(3));
                         float delta = received_time-sent_time;
@@ -139,11 +134,6 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)),
                                                                                            database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
                         corresponding_message.add_message_received(messageReceived);
-                        //messageReceived.set_message_sent(database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
-                    }else{
-                        std::cout << "no corresponding message" <<std::endl;
-                        std::cout << corresponding_message.get_position().get_x() << std::endl;
-                        std::cout << corresponding_message.get_position().get_y() << std::endl;
                     }
                 }
             }
