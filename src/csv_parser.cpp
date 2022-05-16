@@ -50,6 +50,9 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                             std::stof(sm_f.str(4)),
                             0,0,0,0
                             ), std::stof(sm_f.str(1)));
+                    std::cout << "Adding MessageSent position" << std::endl;
+                    std::cout << "X " << temp_message.get_position().get_x() << std::endl;
+                    std::cout << "Y " << temp_message.get_position().get_y() << std::endl;
                 }
             }
             sent_file.close();
@@ -88,6 +91,10 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(13)),
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
+                    std::cout << "Adding real position" << std::endl;
+                    std::cout << "X " << position.get_x() << std::endl;
+                    std::cout << "Y " << position.get_y() << std::endl;
+
                     vehicle.add_real_position(position);
                 }
             }
