@@ -64,7 +64,7 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
         //starting_point = pos_iterator->get_simulation_time();
         //float timepoint = starting_point;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
-        while (pos_iterator->get_simulation_time()<ending_point){
+        while ( std::next(pos_iterator, 2) != positions.end()){
             const MessageReceived* current_message = *it;
             ++it;
             const MessageReceived* new_message = *it;
@@ -84,9 +84,6 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
                 ++it;
-                if (it == messages_recv.end()) {
-                    --it;
-                }
             }
             ++pos_iterator;
         }
