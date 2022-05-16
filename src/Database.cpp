@@ -3,12 +3,11 @@
 //
 
 #include "Database.h"
+#include <iostream>
 
-Database::Database(): vehicles_() {
+Database::Database(): vehicles_() {}
 
-}
-
-Vehicle &Database::create_vehicle(const int &station_id) {
+Vehicle &Database::create_vehicle(const long &station_id) {
     if (vehicles_.find(station_id) == vehicles_.end()) {
         vehicles_.insert(std::make_pair(station_id, Vehicle(station_id)));
     }
@@ -16,7 +15,7 @@ Vehicle &Database::create_vehicle(const int &station_id) {
     return to_return;
 }
 
-Vehicle &Database::get_vehicle(const int &station_id) {
+Vehicle &Database::get_vehicle(const long &station_id) {
     if (vehicles_.find(station_id) != vehicles_.end()) {
         return vehicles_.at(station_id);
     }
@@ -24,15 +23,16 @@ Vehicle &Database::get_vehicle(const int &station_id) {
 }
 
 void Database::sort_data() {
+    std::cout << vehicles_.size() << std::endl;
     for (auto& veh_pair : vehicles_){
         veh_pair.second.sort_data();
     }
 }
 
-std::map<int, std::list<int>> Database::make_pairs(){
-    std::map<int, std::list<int>> to_return;
+std::map<long, std::list<long>> Database::make_pairs(){
+    std::map<long, std::list<long>> to_return;
     for (const auto& vehicle : vehicles_){
-        std::list<int> related_stations;
+        std::list<long> related_stations;
         for (const auto& vehicle2 : vehicles_){
             if (vehicle2.first != vehicle.first){
                 related_stations.push_back(vehicle2.first);

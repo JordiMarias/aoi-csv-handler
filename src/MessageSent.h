@@ -13,10 +13,13 @@ class MessageReceived;
 class MessageSent {
 public:
     MessageSent(float etsi_t, Position pos);
-    const Position& get_position() const;
-    const float& get_etsi_time() const;
-    void complete_position(Position pos);
+    [[nodiscard]] const Position& get_position() const;
+    [[nodiscard]] const float& get_etsi_time() const;
+
+    //void complete_position(Position pos);
+
     void add_message_received(MessageReceived& messageReceived);
+
     bool operator<(const MessageSent &rhs) const;
 
     bool operator>(const MessageSent &rhs) const;
@@ -25,10 +28,14 @@ public:
 
     bool operator>=(const MessageSent &rhs) const;
 
+    bool operator==(const MessageSent &rhs) const;
+
+    bool operator!=(const MessageSent &rhs) const;
+
 private:
-    float etsi_time;
-    Position position;
-    std::map<int, MessageReceived*> message_received_;
+    const float etsi_time;
+    const Position position;
+    std::map<long, MessageReceived*> message_received_;
 };
 
 

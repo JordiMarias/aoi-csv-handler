@@ -11,18 +11,18 @@
 
 class Vehicle {
 public:
-    Vehicle(int station_id);
+    explicit Vehicle(long station_id);
     MessageSent& create_message_sent(Position position, float etsi_time);
-    MessageReceived& create_message_received(float simulation_time, int source_station_id, int origin_station_id);
+    MessageReceived& create_message_received(float simulation_time, long destiny_station_id, long origin_station_id, MessageSent& message_sent);
     void add_real_position(Position position);
-    const int& get_station_id() const;
+    [[nodiscard]] const long& get_station_id() const;
     MessageSent& get_message_sent(const Position& position, const float& sent_etsi_time);
     void sort_data();
-    std::list<const MessageReceived*> get_messages_received_from(const int& station_id) const;
-    const std::list<Position>& get_positions() const;
+    [[nodiscard]] std::list<const MessageReceived*> get_messages_received_from(const long& station_id) const;
+    [[nodiscard]] const std::list<Position>& get_positions() const;
 private:
     static MessageSent empty_message_sent;
-    int station_id;
+    long station_id;
     std::list<MessageSent> messages_sent;
     std::list<MessageReceived> messages_received;
     std::list<Position> real_positions;

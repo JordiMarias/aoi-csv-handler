@@ -4,11 +4,11 @@
 
 #include "Vehicle.h"
 #include <functional>
-
+#include <iostream>
 
 MessageSent Vehicle::empty_message_sent(0, Position(0,0,0,0,0,0,0,0,0));
 
-Vehicle::Vehicle(int station_i) : station_id(station_i) {
+Vehicle::Vehicle(long station_i) : station_id(station_i) {
 }
 
 MessageSent& Vehicle::create_message_sent(Position position, float etsi_time) {
@@ -16,8 +16,8 @@ MessageSent& Vehicle::create_message_sent(Position position, float etsi_time) {
     return messages_sent.back();
 }
 
-MessageReceived& Vehicle::create_message_received(float simulation_time, int source_station_id, int origin_station_id){
-    messages_received.insert(messages_received.end(), MessageReceived(simulation_time, source_station_id,origin_station_id));
+MessageReceived& Vehicle::create_message_received(float simulation_time, long destiny_station_id, long origin_station_id, MessageSent& message_sent){
+    messages_received.insert(messages_received.end(), MessageReceived(simulation_time, destiny_station_id, origin_station_id, message_sent));
     return messages_received.back();
 }
 
@@ -36,29 +36,26 @@ MessageSent& Vehicle::get_message_sent(const Position& position, const float& se
 }
 
 void Vehicle::add_real_position(Position position) {
-    for (MessageSent& messageSent : messages_sent)
-    {
-        if (messageSent.get_position() == position){
-            messageSent.complete_position(position);
-        }
-    }
     real_positions.insert(real_positions.end(), position);
 }
 
-const int& Vehicle::get_station_id() const{
+const long& Vehicle::get_station_id() const{
     return station_id;
 }
 
 void Vehicle::sort_data() {
+    /*std::cout << "Number of sent messages" << messages_sent.size() << std::endl;
+    std::cout << "Number of received messages" << messages_received.size() << std::endl;
+    std::cout << "Number of real pos" << real_positions.size() << std::endl;*/
     messages_sent.sort();
     messages_received.sort();
     real_positions.sort();
 }
 
-std::list<const MessageReceived*> Vehicle::get_messages_received_from(const int& station_id) const{
+std::list<const MessageReceived*> Vehicle::get_messages_received_from(const long& station_i) const{
     std::list<const MessageReceived*> to_return;
     for(const MessageReceived& message_received : messages_received){
-        if (message_received.get_origin_station_id() == station_id){
+        if (message_received.get_origin_station_id() == station_i){
             to_return.push_back(&message_received);
         }
     }
