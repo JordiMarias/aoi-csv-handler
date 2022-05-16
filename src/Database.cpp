@@ -5,9 +5,7 @@
 #include "Database.h"
 #include <iostream>
 
-Database::Database(): vehicles_() {
-
-}
+Database::Database(): vehicles_() {}
 
 Vehicle &Database::create_vehicle(const long &station_id) {
     if (vehicles_.find(station_id) == vehicles_.end()) {

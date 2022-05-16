@@ -4,7 +4,6 @@
 
 #include "Vehicle.h"
 #include <functional>
-#include <iostream>
 
 
 MessageSent Vehicle::empty_message_sent(0, Position(0,0,0,0,0,0,0,0,0));
@@ -37,11 +36,11 @@ MessageSent& Vehicle::get_message_sent(const Position& position, const float& se
 }
 
 void Vehicle::add_real_position(Position position) {
-    std::cout << "In adding real position" << std::endl;
     for (MessageSent& messageSent : messages_sent)
     {
         if (messageSent.get_position() == position){
             messageSent.complete_position(position);
+            break;
         }
     }
     real_positions.insert(real_positions.end(), position);

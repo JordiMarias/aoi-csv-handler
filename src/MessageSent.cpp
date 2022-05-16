@@ -4,7 +4,6 @@
 
 #include "MessageSent.h"
 #include "MessageReceived.h"
-#include <iostream>
 
 MessageSent::MessageSent(float etsi_t, Position pos) :
         position(pos), etsi_time(etsi_t) {}
@@ -34,9 +33,7 @@ bool MessageSent::operator>=(const MessageSent &rhs) const {
 }
 
 void MessageSent::complete_position(Position pos) {
-    std::cout << "In complete postion!" << std::endl;
     if (pos == position) {
-        std::cout << "Renewing position" << std::endl;
         position = pos;
     }
 }
