@@ -61,7 +61,6 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             const MessageReceived* new_message = *it;
             --it;
             const Position& actual_postition = *pos_iterator;
-            std::cout << actual_postition.get_simulation_time() << std::endl;
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
                 const Position& sent_position = current_message->get_message_send().get_position();
                 float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();

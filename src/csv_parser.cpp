@@ -110,7 +110,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
 void CSVParser::parse_received(const std::string &file_location, Database &database) {
     std::fstream received_file;
     std::smatch sm;
-
+    std::cout << "Parse received: " << file_location << std::endl;
     if (std::regex_search(file_location, sm, received_file_))
     {
         std::cout << "Starting to parse received" << std::endl;
