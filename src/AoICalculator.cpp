@@ -40,16 +40,21 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
 }
 
 std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, const Vehicle& vehicle_b){
+    std::cout << "Starting to comupte pAoI" << std::endl;
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
     if (messages_recv.size()>2){
+        std::cout << "decent amount of messages received" << std::endl;
         float starting_point = messages_recv.front()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         const std::list<Position>& positions = vehicle_a.get_positions();
         std::list<Position>::iterator pos_iterator;
-        while ((*pos_iterator).get_simulation_time()<starting_point){
+        float temp_sim_time = 0;
+        while (temp_sim_time<starting_point && pos_iterator!=positions.end()){
             ++pos_iterator;
+            temp_sim_time =(*pos_iterator).get_simulation_time();
         }
+        std::cout << "End putting the iterator to the right place" << std::endl;
         std::cout << "Computing pAoI" << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
         std::list<const MessageReceived*>::iterator itend =messages_recv.end();
