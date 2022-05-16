@@ -94,9 +94,11 @@ Position AoICalculator::predict_position(float timepoint, const Position& positi
 }
 
 float AoICalculator::compute_distance(const Position& pos1, const Position& pos2) {
-    /*float x_to_2 = std::pow(pos1.get_x()-pos2.get_x(),2.0);
-    float y_to_2 = std::pow(pos1.get_y()-pos2.get_y(),2.0);*/
-    return calc_gps_distance(pos1.get_latitude()/std::pow(10, 7), pos1.get_longitude()/std::pow(10, 7), pos2.get_latitude()/std::pow(10, 7), pos2.get_longitude()/std::pow(10, 7));
+    float x_to_2 = std::pow(pos1.get_x()-pos2.get_x(),2.0);
+    float y_to_2 = std::pow(pos1.get_y()-pos2.get_y(),2.0);
+    float result = std::sqrt(x_to_2+y_to_2);
+    std::cout << result << std::endl;
+    return result;
 }
 
 
