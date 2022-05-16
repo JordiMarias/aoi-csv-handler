@@ -49,9 +49,9 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
         float starting_point = messages_recv.front()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         const std::list<Position>& positions = vehicle_a.get_positions();
-        std::list<Position>::const_iterator pos_iterator = positions.begin();
+        std::list<Position>::const_iterator pos_iterator = positions.cbegin();
         float temp_sim_time = 0;
-        while (temp_sim_time<starting_point && pos_iterator!=positions.end()){
+        while (temp_sim_time<starting_point && pos_iterator!=positions.cend()){
             ++pos_iterator;
             temp_sim_time =(*pos_iterator).get_simulation_time();
         }
@@ -67,9 +67,11 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             std::cout << "New computation" << std::endl;
             std::cout << "Position time" << actual_postition.get_simulation_time() << std::endl;
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
-                --it;
-                std::cout << "Packet time (previous): "<< (*it)->get_simulation_time() << std::endl;
-                ++it;
+                if (pos_iterator != positions.cbegin()) {
+                    --it;
+                    std::cout << "Packet time (previous): " << (*it)->get_simulation_time() << std::endl;
+                    ++it;
+                }
                 std::cout << "Packet time (current): "<< current_message->get_simulation_time() << std::endl;
                 std::cout << "Packet time (post): "<< new_message->get_simulation_time() << std::endl;
                 const Position& sent_position = current_message->get_message_send().get_position();
