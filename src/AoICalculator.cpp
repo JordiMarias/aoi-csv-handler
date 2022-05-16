@@ -10,55 +10,32 @@
 AoICalculator::AoICalculator() {}
 
 std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, const Vehicle& vehicle_b){
-    std::cout << "Starting to compute the AoI" << std::endl;
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
-    std::cout << "Message Received size: " << messages_recv.size() << std::endl;
-    std::list<const MessageReceived*>::iterator it_temp =messages_recv.begin();
-    while(it_temp!=messages_recv.end()){
-        std::cout << (*it_temp)->get_simulation_time() << " "<< (*it_temp)->get_message_send().get_position().get_simulation_time() << std::endl;
-        ++it_temp;
-    }
     if (messages_recv.size()>2){
         float starting_point = messages_recv.front()->get_simulation_time();
         float ending_point = messages_recv.back()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         float timepoint = starting_point;
-        std::cout << "Starting point: " << starting_point << std::endl;
-        std::cout << "Ending point: " << ending_point << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
         std::list<const MessageReceived*>::iterator itend =messages_recv.end();
         --itend;
         while (timepoint<ending_point && it != itend){
-            std::cout << "aa3" << std::endl;
             const MessageReceived* current_message = *it;
-            std::cout << "bb"<< std::endl;
             ++it;
-            std::cout << "bb2"<< std::endl;
             const MessageReceived* new_message = *it;
             --it;
             if(timepoint<new_message->get_simulation_time()){
-                std::cout << "timepoint: " << timepoint << std::endl;
-                std::cout << "Sent information: "<< current_message->get_message_send().get_position().get_simulation_time() << std::endl;
                 float aoi = timepoint-current_message->get_message_send().get_position().get_simulation_time();
-                std::cout << "Computed AoI Point 1: "<< aoi << std::endl;
                 to_return.insert(std::make_pair(timepoint, aoi));
             }else {
-                std::cout << "timepoint: " << timepoint << std::endl;
-                std::cout << "Sent information: "<< current_message->get_message_send().get_position().get_simulation_time() << std::endl;
                 float aoi = timepoint - new_message->get_message_send().get_position().get_simulation_time();
-                std::cout << "Computed AoI Point 2: "<< aoi << std::endl;
                 to_return.insert(std::make_pair(timepoint, aoi));
-                //if (it != messages_recv.end() && std::next(it, 1) != messages_recv.end() && std::next(it, 2) != messages_recv.end()) {
-                std::cout << "aa"<< std::endl;
                 ++it;
-                std::cout << "aa2"<< std::endl;
-                //}
             }
             timepoint += 0.1;
         }
     }
-    std::cout << "Make it to the end" << std::endl;
     return to_return;
 }
 
@@ -67,18 +44,17 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
     if (messages_recv.size()>2){
         float starting_point = messages_recv.front()->get_simulation_time();
-        float ending_point = messages_recv.back()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         const std::list<Position>& positions = vehicle_a.get_positions();
         std::list<Position>::iterator pos_iterator;
         while ((*pos_iterator).get_simulation_time()<starting_point){
             ++pos_iterator;
         }
-        //starting_point = pos_iterator->get_simulation_time();
-        //float timepoint = starting_point;
         std::cout << "Computing pAoI" << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
-        while ( std::next(pos_iterator, 2) != positions.end()){
+        std::list<const MessageReceived*>::iterator itend =messages_recv.end();
+        --itend;
+        while ( std::next(pos_iterator, 2) != positions.end() && it != itend){
             const MessageReceived* current_message = *it;
             ++it;
             const MessageReceived* new_message = *it;
@@ -127,13 +103,13 @@ void AoICalculator::compute_and_dump_values(Database& db, const std::string& fol
             Vehicle& vehicle_b = db.get_vehicle(vehicles2);
             std::map<float, float> aoi = compute_aoi(vehicle_a, vehicle_b);
             std::cout << "After compute AoI" << std::endl;
-            //std::map<float, float> paoi = compute_paoi(vehicle_a, vehicle_b);
+            std::map<float, float> paoi = compute_paoi(vehicle_a, vehicle_b);
             std::cout << "After compute pAoI" << std::endl;
             std::string aoi_file = folder+"/"+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_aoi.csv";
-            //std::string paoi_file = folder+"/"+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_paoi.csv";
+            std::string paoi_file = folder+"/"+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_paoi.csv";
             std::cout << "Dumping to: " << aoi_file << std::endl;
             dump_values(aoi, aoi_file);
-            //dump_values(aoi, paoi_file);
+            dump_values(aoi, paoi_file);
         }
     }
 }
