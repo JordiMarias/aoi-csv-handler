@@ -86,6 +86,7 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
 
 Position AoICalculator::predict_position(float timepoint, const Position& position){
     float t = timepoint-position.get_simulation_time();
+    std::cout << "time difference: "<< t << std::endl;
     float speed_x = position.get_speed_x()+t*position.get_acceleration_x();
     float speed_y = position.get_speed_y()+t*position.get_acceleration_x();
     float x = position.get_x()+position.get_speed_x()*t+0.5*position.get_acceleration_x()*t*t;
@@ -94,6 +95,12 @@ Position AoICalculator::predict_position(float timepoint, const Position& positi
 }
 
 float AoICalculator::compute_distance(const Position& pos1, const Position& pos2) {
+    std::cout << "Position 1" << std::endl;
+    std::cout << "X = " << pos1.get_x() << std::endl;
+    std::cout << "Y = " << pos1.get_x() << std::endl;
+    std::cout << "Position 2" << std::endl;
+    std::cout << "X = " << pos2.get_x() << std::endl;
+    std::cout << "Y = " << pos2.get_x() << std::endl;
     float x_to_2 = std::pow(pos1.get_x()-pos2.get_x(),2.0);
     float y_to_2 = std::pow(pos1.get_y()-pos2.get_y(),2.0);
     float result = std::sqrt(x_to_2+y_to_2);
