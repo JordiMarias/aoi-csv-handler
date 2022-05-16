@@ -14,8 +14,9 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
     std::cout << "Message Received size: " << messages_recv.size() << std::endl;
-    for (const MessageReceived* message : messages_recv){
-        std::cout << message->get_simulation_time() << std::endl;
+    std::list<const MessageReceived*>::iterator it_temp =messages_recv.begin();
+    while(it_temp!=messages_recv.end()){
+        std::cout << (*it_temp)->get_simulation_time() << std::endl;
     }
     if (messages_recv.size()>2){
         float starting_point = messages_recv.front()->get_simulation_time();
