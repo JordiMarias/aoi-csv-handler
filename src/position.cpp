@@ -74,7 +74,6 @@ bool Position::operator>=(const Position &rhs) const {
 
 bool Position::operator==(const Position &rhs) const {
     std::cout << "using position operator==" << std::endl;
-
     int simulation_time_int = (int)(simulation_time*std::pow(10, 5));
     int rhs_simulation_time_int = (int)(rhs.simulation_time*std::pow(10, 5));
     std::cout << simulation_time_int << "==" << rhs_simulation_time_int << " "<< (simulation_time_int == rhs_simulation_time_int)<< std::endl;
