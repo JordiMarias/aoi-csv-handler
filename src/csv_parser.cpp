@@ -102,8 +102,8 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
     std::cout << "Parse received: " << file_location << std::endl;
     if (std::regex_search(file_location, sm, received_file_))
     {
-        std::cout << "Starting to parse received" << std::endl;
         long station_id = std::stol(sm.str(1));
+        std::cout << "Starting to parse received: "<< station_id << std::endl;
         received_file.open(file_location);
         Vehicle& vehicle = database.get_vehicle(station_id);
         if (received_file.is_open()){
