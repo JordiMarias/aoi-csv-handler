@@ -20,7 +20,7 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
         starting_point = std::round(starting_point*100)/100+0.1;
         float timepoint = starting_point;
         std::cout << "Starting point: " << starting_point << std::endl;
-        std::cout << "Starting point: " << ending_point << std::endl;
+        std::cout << "Ending point: " << ending_point << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
         while (timepoint<ending_point){
             const MessageReceived* current_message = *it;
