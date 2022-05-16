@@ -140,6 +140,10 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                                                                                            database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
                         corresponding_message.add_message_received(messageReceived);
                         //messageReceived.set_message_sent(database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
+                    }else{
+                        std::cout << "no corresponding message" <<std::endl;
+                        std::cout << corresponding_message.get_position().get_x() << std::endl;
+                        std::cout << corresponding_message.get_position().get_y() << std::endl;
                     }
                 }
             }
