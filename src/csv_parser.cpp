@@ -137,10 +137,17 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                      */
                     //std::cout << "Parsing : " << sm.str(4) << std::endl;
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
-                    MessageReceived& messageReceived = vehicle.create_message_received(std::stof(sm.str(4)), station_id, std::stol(sm.str(1)));
-                    std::cout << "Created Message Received: "<< messageReceived.get_simulation_time() << std::endl;
                     MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
                     if (corresponding_message.get_etsi_time() != 0){
+                        float sent_time = std::stof(sm.str(2));
+                        float received_time = std::stof(sm.str(3));
+                        float delta = received_time-sent_time;
+                        if (delta<0){
+                            delta = (received_time+65536)-sent_time;
+                        }
+                        float received_sim_time = corresponding_message.get_position().get_simulation_time()+(delta);
+                        MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)));
+                        std::cout << "Created Message Received: "<< messageReceived.get_simulation_time() << std::endl;
                         corresponding_message.add_message_received(messageReceived);
                         messageReceived.set_message_sent(corresponding_message);
                     }
