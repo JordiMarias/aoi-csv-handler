@@ -30,6 +30,7 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
         std::list<const MessageReceived*>::iterator itend =messages_recv.end();
         --itend;
         while (timepoint<ending_point && it != itend){
+            std::cout << "aa3" << std::endl;
             const MessageReceived* current_message = *it;
             std::cout << "bb"<< std::endl;
             ++it;
@@ -57,6 +58,7 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
             timepoint += 0.1;
         }
     }
+    std::cout << "Make it to the end" << std::endl;
     return to_return;
 }
 
