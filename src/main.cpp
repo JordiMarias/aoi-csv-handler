@@ -60,7 +60,7 @@ int main(int argc, char * argv[]) {
                 std::cout << "Inserting sent" << std::endl;
                 sent_file_map.insert(std::make_pair(std::stol(sm[1]), path));
             } else if (std::regex_search(path, sm, received_regex)) {
-                std::cout << "Inserting received" << std::endl;
+                std::cout << "Inserting received: " << path << std::endl;
                 received_file_map.insert(std::make_pair(std::stol(sm[1]), path));
             }
         }
