@@ -4,7 +4,7 @@
 
 #include "Vehicle.h"
 #include <functional>
-
+#include <iostream>
 
 MessageSent Vehicle::empty_message_sent(0, Position(0,0,0,0,0,0,0,0,0));
 
@@ -44,6 +44,9 @@ const long& Vehicle::get_station_id() const{
 }
 
 void Vehicle::sort_data() {
+    std::cout << "Number of sent messages" << messages_sent.size() << std::endl;
+    std::cout << "Number of received messages" << messages_received.size() << std::endl;
+    std::cout << "Number of real pos" << real_positions.size() << std::endl;
     messages_sent.sort();
     messages_received.sort();
     real_positions.sort();
