@@ -50,9 +50,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                             std::stof(sm_f.str(4)),
                             0,0,0,0
                             ), std::stof(sm_f.str(1)));
-                    std::cout << "Adding MessageSent position" << std::endl;
-                    std::cout << "X " << temp_message.get_position().get_x() << std::endl;
-                    std::cout << "Y " << temp_message.get_position().get_y() << std::endl;
                 }
             }
             sent_file.close();
@@ -91,9 +88,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(13)),
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
-                    std::cout << "Adding real position" << std::endl;
-                    std::cout << "X " << position.get_x() << std::endl;
-                    std::cout << "Y " << position.get_y() << std::endl;
 
                     vehicle.add_real_position(position);
                 }
@@ -141,14 +135,6 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)),
                                                                                            database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
                         corresponding_message.add_message_received(messageReceived);
-                        std::cout << "Parsed position: " << std::endl;
-                        std::cout << "lat: "<< temp.get_latitude() << std::endl;
-                        std::cout << "lon: "<< temp.get_longitude() << std::endl;
-                        std::cout << "Checked position:"<< std::endl;
-                        std::cout << "lat: "<< corresponding_message.get_position().get_latitude() << std::endl;
-                        std::cout << "lon: "<< corresponding_message.get_position().get_longitude() << std::endl;
-                        std::cout << "x: "<< corresponding_message.get_position().get_x() << std::endl;
-                        std::cout << "y: "<< corresponding_message.get_position().get_y() << std::endl;
                     }
                 }
             }
