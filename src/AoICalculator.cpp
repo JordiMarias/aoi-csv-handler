@@ -110,9 +110,12 @@ Position AoICalculator::predict_position(float timepoint, const Position& positi
     float t = timepoint-position.get_simulation_time();
     std::cout << "time difference: "<< t << std::endl;
     float speed_x = position.get_speed_x()+t*position.get_acceleration_x();
-    float speed_y = position.get_speed_y()+t*position.get_acceleration_x();
+    float speed_y = position.get_speed_y()+t*position.get_acceleration_y();
     float x = position.get_x()+position.get_speed_x()*t+0.5*position.get_acceleration_x()*t*t;
     float y = position.get_y()+position.get_speed_y()*t+0.5*position.get_acceleration_y()*t*t;
+    std::cout << "Position: " << std::endl;
+    std::cout << "X: "<< x << std::endl;
+    std::cout << "Y: "<< y << std::endl;
     return Position(timepoint, x, y, 0, 0, speed_x, speed_y, position.get_acceleration_x(), position.get_acceleration_y());
 }
 
