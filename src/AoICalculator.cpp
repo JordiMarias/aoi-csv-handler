@@ -102,14 +102,13 @@ void AoICalculator::compute_and_dump_values(Database& db, const std::string& fol
             Vehicle& vehicle_a = db.get_vehicle(vehicles.first);
             Vehicle& vehicle_b = db.get_vehicle(vehicles2);
             std::map<float, float> aoi = compute_aoi(vehicle_a, vehicle_b);
-            std::cout << "After compute AoI" << std::endl;
             std::map<float, float> paoi = compute_paoi(vehicle_a, vehicle_b);
-            std::cout << "After compute pAoI" << std::endl;
             std::string aoi_file = folder+"/"+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_aoi.csv";
             std::string paoi_file = folder+"/"+std::to_string(vehicles.first)+"_"+std::to_string(vehicles2)+"_paoi.csv";
             std::cout << "Dumping to: " << aoi_file << std::endl;
+            std::cout << "Dumping to: " << paoi_file << std::endl;
             dump_values(aoi, aoi_file);
-            dump_values(aoi, paoi_file);
+            dump_values(paoi, paoi_file);
         }
     }
 }
