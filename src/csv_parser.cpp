@@ -15,9 +15,6 @@ const std::regex CSVParser::received_file_{"(\\d+)_received\\.csv$"};
 CSVParser::CSVParser(){}
 
 void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::string& file_positioned, Database& database) {
-    std::cout << "Parsing sent positioned" << std::endl;
-    std::cout << "Sent: " << file_sent << std::endl;
-    std::cout << "Positioned: " << file_positioned<< std::endl;
     std::fstream positioned_file;
     std::fstream sent_file;
     std::smatch sm;
@@ -28,7 +25,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
          * 1 station_id
          */
         // Stores simulation time and Etsi time
-        std::cout << "Parsing sent positioned" << std::endl;
         long station_id = std::stol(sm.str(1));
         Vehicle& vehicle = database.get_vehicle(station_id);
         std::map<float, MessageSent&> sent_file_map;
@@ -46,12 +42,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 5 X
                      * 6 Y
                      */
-                    /*std::cout << " - Sent Time: " << sm_f.str(1) << std::endl;
-                    std::cout << " - Simulation: " << sm_f.str(2) << std::endl;
-                    std::cout << " - Latitude: " << sm_f.str(3) << std::endl;
-                    std::cout << " - Longitude: " << sm_f.str(4) << std::endl;
-                    std::cout << " - X: " << sm_f.str(5) << std::endl;
-                    std::cout << " - Y: " << sm_f.str(6) << std::endl;*/
                     MessageSent& temp_message = vehicle.create_message_sent(Position(
                             std::stof(sm_f.str(2)),
                             std::stof(sm_f.str(5)),
@@ -89,7 +79,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 17 Penalty
                      * 18 CAM Sent
                      */
-                    // std::cout << "Position parsed: " << sm.str(1) << std::endl;
                     Position position = Position(std::stof(sm.str(1)),
                                                  std::stof(sm.str(5)),
                                                  std::stof(sm.str(6)),
@@ -118,6 +107,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
         received_file.open(file_location);
         Vehicle& vehicle = database.get_vehicle(station_id);
         if (received_file.is_open()){
+            std::cout << "file is opened" << std::endl;
             std::string line;
             std::getline(received_file, line);
             while (std::getline(received_file, line)) {
@@ -134,7 +124,6 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                      * 9 Destiny X
                      * 10 Destiny Y
                      */
-                    //std::cout << "Parsing : " << sm.str(4) << std::endl;
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
                     MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
                     if (corresponding_message.get_etsi_time() != 0){
