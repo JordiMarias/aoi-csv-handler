@@ -101,7 +101,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                     if (sm.str(16) == "1"){
                         int sent_time_index = (int)(std::stod(sm.str(1).substr(0,8))*std::pow(10, 5));
                         if (sent_file_map.find(sent_time_index) != sent_file_map.end()){
-                            std::cout << "Adding Sent Message" << std::endl;
                             float etsi_time = sent_file_map[sent_time_index];
                             vehicle.create_message_sent(position, etsi_time);
                         }
