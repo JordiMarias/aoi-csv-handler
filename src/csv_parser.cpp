@@ -70,6 +70,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
             std::string line;
             std::getline(positioned_file, line);
             while (std::getline(positioned_file, line)) {
+                std::cout << "Parsing line: " << line << std::endl;
                 if (std::regex_match(line, sm, positioned_match_)) {
                     /*
                      * 1 Simulation Time
