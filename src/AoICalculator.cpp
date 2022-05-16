@@ -70,10 +70,10 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             std::cout << "New computation" << std::endl;
             std::cout << "Position time" << actual_postition.get_simulation_time() << std::endl;
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
-                if (pos_iterator != positions.cbegin()) {
-                    --pos_iterator;
-                    std::cout << "Packet time (previous): " << pos_iterator->get_simulation_time() << std::endl;
-                    ++pos_iterator;
+                if (it != messages_recv.begin()) {
+                    --it;
+                    std::cout << "Packet time (previous): " << (*it)->get_simulation_time() << std::endl;
+                    ++it;
                 }
                 std::cout << "Packet time (current): "<< current_message->get_simulation_time() << std::endl;
                 std::cout << "Packet time (post): "<< new_message->get_simulation_time() << std::endl;
