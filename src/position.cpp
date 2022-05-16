@@ -3,8 +3,7 @@
 //
 
 #include "position.h"
-
-//Position::Position() {}
+#include <iostream>
 
 Position::Position(float simulation_time, float x, float y, float latitude, float longitude,
                    float speed_x, float speed_y, float acceleration_x, float acceleration_y): simulation_time(simulation_time),
@@ -73,11 +72,13 @@ bool Position::operator>=(const Position &rhs) const {
 }
 
 bool Position::operator==(const Position &rhs) const {
-    return simulation_time == rhs.simulation_time &&
-           x == rhs.x &&
-           y == rhs.y &&
-           latitude == rhs.latitude &&
-           longitude == rhs.longitude;
+    bool tt = simulation_time == rhs.simulation_time &&
+              x == rhs.x &&
+              y == rhs.y &&
+              latitude == rhs.latitude &&
+              longitude == rhs.longitude;
+    std::cout << "In comparison "<< tt << std::endl;
+    return tt;
 }
 
 bool Position::operator!=(const Position &rhs) const {

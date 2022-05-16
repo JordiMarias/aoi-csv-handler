@@ -37,6 +37,7 @@ MessageSent& Vehicle::get_message_sent(const Position& position, const float& se
 }
 
 void Vehicle::add_real_position(Position position) {
+    std::cout << "In adding real position" << std::endl;
     for (MessageSent& messageSent : messages_sent)
     {
         if (messageSent.get_position() == position){
