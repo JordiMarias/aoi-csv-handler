@@ -66,13 +66,11 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             const Position& actual_postition = *pos_iterator;
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
                 const Position& sent_position = current_message->get_message_send().get_position();
-                float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
                 Position predicted = predict_position(actual_postition.get_simulation_time(), sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
             }else {
                 const Position& sent_position = new_message->get_message_send().get_position();
-                float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
                 Position predicted = predict_position(actual_postition.get_simulation_time(), sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
@@ -97,10 +95,10 @@ Position AoICalculator::predict_position(float timepoint, const Position& positi
 float AoICalculator::compute_distance(const Position& pos1, const Position& pos2) {
     std::cout << "Position 1" << std::endl;
     std::cout << "X = " << pos1.get_x() << std::endl;
-    std::cout << "Y = " << pos1.get_x() << std::endl;
+    std::cout << "Y = " << pos1.get_y() << std::endl;
     std::cout << "Position 2" << std::endl;
     std::cout << "X = " << pos2.get_x() << std::endl;
-    std::cout << "Y = " << pos2.get_x() << std::endl;
+    std::cout << "Y = " << pos2.get_y() << std::endl;
     float x_to_2 = std::pow(pos1.get_x()-pos2.get_x(),2.0);
     float y_to_2 = std::pow(pos1.get_y()-pos2.get_y(),2.0);
     float result = std::sqrt(x_to_2+y_to_2);
