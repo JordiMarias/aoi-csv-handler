@@ -6,7 +6,7 @@
 #include <map>
 #include <iostream>
 
-const std::regex CSVParser::positioned_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
+const std::regex CSVParser::positioned_match_{"([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+),([\\d\\.\\-]+)"};
 const std::regex CSVParser::positioned_file_{"(\\d+)_positioned\\.csv$"};
 const std::regex CSVParser::sent_match_{"([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)"};
 const std::regex CSVParser::sent_file_{"(\\d+)_sent\\.csv$"};
