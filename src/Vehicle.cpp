@@ -36,13 +36,6 @@ MessageSent& Vehicle::get_message_sent(const Position& position, const float& se
 }
 
 void Vehicle::add_real_position(Position position) {
-    /*for (MessageSent& messageSent : messages_sent)
-    {
-        if (messageSent.get_position() == position){
-            messageSent.complete_position(position);
-            break;
-        }
-    }*/
     real_positions.insert(real_positions.end(), position);
 }
 

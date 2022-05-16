@@ -97,6 +97,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
                     if (sm.str(1) == "1"){
+                        std::cout << "Checking for a sent one" << std::endl;
                         if (sent_file_map.find(position) != sent_file_map.end()){
                             std::cout << "Adding sentMessage" << std::endl;
                             float etsi_time = sent_file_map[position];
