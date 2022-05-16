@@ -11,6 +11,12 @@ Position::Position(float simulation_time, float x, float y, float latitude, floa
 x(x), y(y), latitude(latitude), longitude(longitude), speed_x(speed_x),
 speed_y(speed_y), acceleration_x(acceleration_x), acceleration_y(acceleration_y){}
 
+Position::Position(const Position& position) : simulation_time(position.simulation_time),
+                                               x(position.x), y(position.y), latitude(position.latitude),
+                                               longitude(position.longitude), speed_x(position.speed_x),
+                                               speed_y(position.speed_y), acceleration_x(position.acceleration_x),
+                                               acceleration_y(position.acceleration_y){}
+
 const float& Position::get_x() const{
     return x;
 }
@@ -76,4 +82,8 @@ bool Position::operator==(const Position &rhs) const {
 
 bool Position::operator!=(const Position &rhs) const {
     return !(rhs == *this);
+}
+
+Position Position::operator=(const Position& other){
+    return Position(other.simulation_time, other.x, other.y, other.latitude, other.longitude, other.speed_x, other.speed_y, other.acceleration_x, other.acceleration_y);
 }

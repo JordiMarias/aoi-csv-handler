@@ -11,6 +11,9 @@ public:
     //Position();
     Position(float simulation_time, float x, float y, float latitude, float longitude,
              float speed_x, float speed_y, float acceleration_x, float acceleration_y);
+    Position(const Position& position);
+    Position operator=(const Position& other);
+
     const float& get_x() const;
     const float& get_y() const;
     const float& get_latitude() const;
@@ -28,15 +31,15 @@ public:
     bool operator<=(const Position &rhs) const;
     bool operator>=(const Position &rhs) const;
 private:
-    float simulation_time;
-    float x;
-    float y;
-    float latitude;
-    float longitude;
-    float speed_x;
-    float speed_y;
-    float acceleration_x;
-    float acceleration_y;
+    const float simulation_time;
+    const float x;
+    const float y;
+    const float latitude;
+    const float longitude;
+    const float speed_x;
+    const float speed_y;
+    const float acceleration_x;
+    const float acceleration_y;
 };
 
 
