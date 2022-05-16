@@ -27,7 +27,9 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
         std::cout << "Starting point: " << starting_point << std::endl;
         std::cout << "Ending point: " << ending_point << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
-        while (timepoint<ending_point){
+        std::list<const MessageReceived*>::iterator itend =messages_recv.end();
+        --itend;
+        while (timepoint<ending_point && it != itend){
             const MessageReceived* current_message = *it;
             ++it;
             const MessageReceived* new_message = *it;
@@ -44,9 +46,9 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
                 float aoi = timepoint - new_message->get_message_send().get_position().get_simulation_time();
                 std::cout << "Computed AoI Point 2: "<< aoi << std::endl;
                 to_return.insert(std::make_pair(timepoint, aoi));
-                if (it != messages_recv.end() && std::next(it, 1) != messages_recv.end() && std::next(it, 2) != messages_recv.end()) {
-                    ++it;
-                }
+                //if (it != messages_recv.end() && std::next(it, 1) != messages_recv.end() && std::next(it, 2) != messages_recv.end()) {
+                ++it;
+                //}
             }
             timepoint += 0.1;
         }
