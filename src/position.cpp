@@ -78,6 +78,7 @@ bool Position::operator==(const Position &rhs) const {
               latitude == rhs.latitude &&
               longitude == rhs.longitude;
     std::cout << "In comparison "<< tt << std::endl;
+    std::cout << "x: "<< (simulation_time == rhs.simulation_time) << std::endl;
     std::cout << "x: "<< (x == rhs.x) << std::endl;
     std::cout << "y: "<< (y == rhs.y) << std::endl;
     std::cout << "latitude: "<< (latitude == rhs.latitude) << std::endl;
