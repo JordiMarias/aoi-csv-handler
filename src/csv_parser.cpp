@@ -134,6 +134,14 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)),
                                                                                            database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
                         corresponding_message.add_message_received(messageReceived);
+                        std::cout << "Parsed position: " << std::endl;
+                        std::cout << "lat: "<< temp.get_latitude() << std::endl;
+                        std::cout << "lon: "<< temp.get_longitude() << std::endl;
+                        std::cout << "Checked position:"<< std::endl;
+                        std::cout << "lat: "<< corresponding_message.get_position().get_latitude() << std::endl;
+                        std::cout << "lon: "<< corresponding_message.get_position().get_longitude() << std::endl;
+                        std::cout << "x: "<< corresponding_message.get_position().get_x() << std::endl;
+                        std::cout << "y: "<< corresponding_message.get_position().get_y() << std::endl;
                     }
                 }
             }
