@@ -92,6 +92,13 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
 Position AoICalculator::predict_position(float timepoint, const Position& position){
     float t = timepoint-position.get_simulation_time();
     std::cout << "time difference: "<< t << std::endl;
+    std::cout << "Depicting prediction" << std::endl;
+    std::cout << "X = " << position.get_x() << std::endl;
+    std::cout << "Y = " << position.get_y() << std::endl;
+    std::cout << "speedX = " << position.get_speed_x() << std::endl;
+    std::cout << "speedY = " << position.get_speed_y() << std::endl;
+    std::cout << "accelerationX = " << position.get_acceleration_x() << std::endl;
+    std::cout << "accelerationY = " << position.get_acceleration_y() << std::endl;
     float speed_x = position.get_speed_x()+t*position.get_acceleration_x();
     float speed_y = position.get_speed_y()+t*position.get_acceleration_y();
     float x = position.get_x()+position.get_speed_x()*t+0.5*position.get_acceleration_x()*t*t;
