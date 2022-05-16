@@ -32,12 +32,20 @@ bool MessageSent::operator>=(const MessageSent &rhs) const {
     return !(*this < rhs);
 }
 
-void MessageSent::complete_position(Position pos) {
+/*void MessageSent::complete_position(Position pos) {
     if (pos == position) {
         position = pos;
     }
-}
+}*/
 
 void MessageSent::add_message_received(MessageReceived &messageReceived) {
     message_received_.insert(std::make_pair(messageReceived.get_destiny_station_id(), &messageReceived));
+}
+
+bool MessageSent::operator==(const MessageSent &rhs) const {
+    return position == rhs.position;
+}
+
+bool MessageSent::operator!=(const MessageSent &rhs) const {
+    return !(rhs == *this);
 }

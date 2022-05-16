@@ -4,6 +4,7 @@
 
 #include "position.h"
 #include <iostream>
+#include <cmath>
 
 Position::Position(float simulation_time, float x, float y, float latitude, float longitude,
                    float speed_x, float speed_y, float acceleration_x, float acceleration_y): simulation_time(simulation_time),
@@ -72,9 +73,11 @@ bool Position::operator>=(const Position &rhs) const {
 }
 
 bool Position::operator==(const Position &rhs) const {
-    return simulation_time == rhs.simulation_time &&
-           latitude == rhs.latitude &&
-           longitude == rhs.longitude;
+    int simulation_time_int = (int)(simulation_time*std::pow(10, 5));
+    int rhs_simulation_time_int = (int)(rhs.simulation_time*std::pow(10, 5));
+    return simulation_time_int == rhs_simulation_time_int &&
+            (int)latitude == (int)rhs.latitude &&
+            (int)longitude == (int)rhs.longitude;
 }
 
 bool Position::operator!=(const Position &rhs) const {

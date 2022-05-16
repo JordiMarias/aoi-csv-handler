@@ -27,7 +27,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
         // Stores simulation time and Etsi time
         long station_id = std::stol(sm.str(1));
         Vehicle& vehicle = database.get_vehicle(station_id);
-        std::map<float, MessageSent&> sent_file_map;
+        std::map<Position, float> sent_file_map;
         sent_file.open(file_sent);
         if (sent_file.is_open()) {
             std::string line;
@@ -42,14 +42,22 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 5 X
                      * 6 Y
                      */
-                    MessageSent& temp_message = vehicle.create_message_sent(Position(
+                    Position temp = Position(
+                            std::stof(sm_f.str(2)),
+                            std::stof(sm_f.str(5)),
+                            std::stof(sm_f.str(6)),
+                            std::stof(sm_f.str(3)),
+                            std::stof(sm_f.str(4)),
+                            0,0,0,0 );
+                    sent_file_map.insert(std::make_pair(temp, std::stof(sm_f.str(1))));
+                    /*MessageSent& temp_message = vehicle.create_message_sent(Position(
                             std::stof(sm_f.str(2)),
                             std::stof(sm_f.str(5)),
                             std::stof(sm_f.str(6)),
                             std::stof(sm_f.str(3)),
                             std::stof(sm_f.str(4)),
                             0,0,0,0
-                            ), std::stof(sm_f.str(1)));
+                            ), );*/
                 }
             }
             sent_file.close();
@@ -88,8 +96,13 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(13)),
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
-
-                    vehicle.add_real_position(position);
+                    if (sm.str(1) == "1"){
+                        if (sent_file_map.find(position) != sent_file_map.end()){
+                            std::cout << "Adding sentMessage" << std::endl;
+                            float etsi_time = sent_file_map[position];
+                            vehicle.create_message_sent(position, etsi_time);
+                        }
+                    }
                 }
             }
             positioned_file.close();

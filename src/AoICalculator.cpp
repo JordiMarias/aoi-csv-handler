@@ -63,7 +63,7 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
         --it;
         std::list<const MessageReceived*>::iterator itend =messages_recv.end();
         --itend;
-        while ( std::next(pos_iterator, 2) != positions.end() && it != itend){
+        while ( std::next(pos_iterator, 2) != positions.cend() && it != itend){
             const MessageReceived* current_message = *it;
             ++it;
             const MessageReceived* new_message = *it;
