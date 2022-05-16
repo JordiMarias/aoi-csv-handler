@@ -13,7 +13,7 @@ class Vehicle {
 public:
     explicit Vehicle(long station_id);
     MessageSent& create_message_sent(Position position, float etsi_time);
-    MessageReceived& create_message_received(float simulation_time, long source_station_id, long origin_station_id);
+    MessageReceived& create_message_received(float simulation_time, long source_station_id, long origin_station_id, MessageSent& message_sent);
     void add_real_position(Position position);
     [[nodiscard]] const long& get_station_id() const;
     MessageSent& get_message_sent(const Position& position, const float& sent_etsi_time);
