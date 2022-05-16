@@ -6,13 +6,13 @@
 #include "MessageReceived.h"
 
 MessageSent::MessageSent(float etsi_t, Position pos) :
-        position(pos), etsi_time(etsi_t){}
+        position(pos), etsi_time(etsi_t) {}
 
-const Position& MessageSent::get_position() const{
+const Position &MessageSent::get_position() const {
     return position;
 }
 
-const float& MessageSent::get_etsi_time() const{
+const float &MessageSent::get_etsi_time() const {
     return etsi_time;
 }
 
@@ -32,10 +32,16 @@ bool MessageSent::operator>=(const MessageSent &rhs) const {
     return !(*this < rhs);
 }
 
-void MessageSent::complete_position(Position pos){
-    position = pos;
+void MessageSent::complete_position(Position pos) {
+    if (position.get_x() == pos.get_x() &&
+        position.get_y() == pos.get_y() &&
+        position.get_latitude() == pos.get_latitude() &&
+        position.get_longitude() == pos.get_longitude() &&
+        position.get_simulation_time() == pos.get_simulation_time()) {
+        position = pos;
+    }
 }
 
-void MessageSent::add_message_received(MessageReceived& messageReceived){
+void MessageSent::add_message_received(MessageReceived &messageReceived) {
     message_received_.insert(std::make_pair(messageReceived.get_source_station_id(), &messageReceived));
 }

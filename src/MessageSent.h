@@ -13,8 +13,8 @@ class MessageReceived;
 class MessageSent {
 public:
     MessageSent(float etsi_t, Position pos);
-    const Position& get_position() const;
-    const float& get_etsi_time() const;
+    [[nodiscard]] const Position& get_position() const;
+    [[nodiscard]] const float& get_etsi_time() const;
     void complete_position(Position pos);
     void add_message_received(MessageReceived& messageReceived);
     bool operator<(const MessageSent &rhs) const;
