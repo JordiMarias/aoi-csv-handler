@@ -121,7 +121,6 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
             std::string line;
             std::getline(received_file, line);
             while (std::getline(received_file, line)) {
-                std::cout << "Parsing line: "<< line << std::endl;
                 if (std::regex_match(line, sm, received_match_)) {
                     /*
                      * 1 Station ID
@@ -147,7 +146,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         }
                         std::cout << "Delta: " << delta << std::endl;
                         float received_sim_time = corresponding_message.get_position().get_simulation_time()+(delta/1000);
-                        std::cout << "Received sim time: " << delta << std::endl;
+                        std::cout << "Received sim time: " << received_sim_time << std::endl;
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)));
                         std::cout << "Created Message Received: "<< messageReceived.get_simulation_time() << std::endl;
                         corresponding_message.add_message_received(messageReceived);
