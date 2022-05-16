@@ -70,7 +70,6 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
             std::string line;
             std::getline(positioned_file, line);
             while (std::getline(positioned_file, line)) {
-                std::cout << "Parsing line: " << line << std::endl;
                 if (std::regex_match(line, sm, positioned_match_)) {
                     /*
                      * 1 Simulation Time
@@ -91,7 +90,7 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                      * 17 Penalty
                      * 18 CAM Sent
                      */
-                    std::cout << "Position parsed: " << sm.str(1) << std::endl;
+                    // std::cout << "Position parsed: " << sm.str(1) << std::endl;
                     Position position = Position(std::stof(sm.str(1)),
                                                  std::stof(sm.str(5)),
                                                  std::stof(sm.str(6)),
@@ -113,8 +112,9 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
     std::fstream received_file;
     std::smatch sm;
 
-    if (std::regex_match(file_location, sm, received_file_))
+    if (std::regex_search(file_location, sm, received_file_))
     {
+        std::cout << "Starting to parse received" << std::endl;
         long station_id = std::stol(sm.str(1));
         received_file.open(file_location);
         Vehicle& vehicle = database.get_vehicle(station_id);
@@ -122,6 +122,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
             std::string line;
             std::getline(received_file, line);
             while (std::getline(received_file, line)) {
+                std::cout << "Parsing line: "<< line << std::endl;
                 if (std::regex_match(line, sm, received_match_)) {
                     /*
                      * 1 Station ID
@@ -135,6 +136,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                      * 9 Destiny X
                      * 10 Destiny Y
                      */
+                    std::cout << "Parsing : " << sm.str(4) << std::endl;
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
                     MessageReceived& messageReceived = vehicle.create_message_received(std::stof(sm.str(4)), station_id, std::stol(sm.str(1)));
                     MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
