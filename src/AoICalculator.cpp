@@ -46,6 +46,9 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
     if (messages_recv.size()>2){
+        for (const MessageReceived* m : messages_recv){
+            std::cout << m->get_simulation_time() << std::endl;
+        }
         float starting_point = messages_recv.front()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
         const std::list<Position>& positions = vehicle_a.get_positions();
