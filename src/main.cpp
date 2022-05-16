@@ -64,6 +64,9 @@ int main(int argc, char * argv[]) {
         for (const auto &positioned_file: positioned_file_map) {
             const long &station_id = positioned_file.first;
             csv_parser.parse_sent_positioned(sent_file_map[station_id], positioned_file.second, database);
+        }
+        for (const auto &positioned_file: positioned_file_map) {
+            const long &station_id = positioned_file.first;
             csv_parser.parse_received(received_file_map[station_id], database);
         }
     } catch (std::exception &exception) {
