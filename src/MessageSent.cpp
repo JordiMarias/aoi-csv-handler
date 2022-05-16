@@ -35,11 +35,7 @@ bool MessageSent::operator>=(const MessageSent &rhs) const {
 
 void MessageSent::complete_position(Position pos) {
     std::cout << "In complete postion!" << std::endl;
-    if (position.get_x() == pos.get_x() &&
-        position.get_y() == pos.get_y() &&
-        position.get_latitude() == pos.get_latitude() &&
-        position.get_longitude() == pos.get_longitude() &&
-        position.get_simulation_time() == pos.get_simulation_time()) {
+    if (pos == position) {
         std::cout << "Renewing position" << std::endl;
         position = pos;
     }
