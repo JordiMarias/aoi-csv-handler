@@ -145,7 +145,9 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         if (delta<0){
                             delta = (received_time+65536)-sent_time;
                         }
+                        std::cout << "Delta: " << delta << std::endl;
                         float received_sim_time = corresponding_message.get_position().get_simulation_time()+(delta/1000);
+                        std::cout << "Received sim time: " << delta << std::endl;
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)));
                         std::cout << "Created Message Received: "<< messageReceived.get_simulation_time() << std::endl;
                         corresponding_message.add_message_received(messageReceived);
