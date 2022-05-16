@@ -128,6 +128,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                     Position temp = Position(0,0,0,std::stof(sm.str(5)), std::stof(sm.str(6)),0,0,0,0);
                     MessageSent& corresponding_message = database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2)));
                     if (corresponding_message.get_etsi_time() != 0){
+                        std::cout << "there is a corresponding message" << std::endl;
                         float sent_time = std::stof(sm.str(2));
                         float received_time = std::stof(sm.str(3));
                         float delta = received_time-sent_time;
