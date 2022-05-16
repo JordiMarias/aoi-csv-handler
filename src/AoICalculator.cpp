@@ -67,13 +67,13 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
                 const Position& sent_position = current_message->get_message_send().get_position();
                 float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
-                Position predicted = predict_position(aoi, sent_position);
+                Position predicted = predict_position(actual_postition.get_simulation_time(), sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
             }else {
                 const Position& sent_position = new_message->get_message_send().get_position();
                 float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
-                Position predicted = predict_position(aoi, sent_position);
+                Position predicted = predict_position(actual_postition.get_simulation_time(), sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
                 ++it;
