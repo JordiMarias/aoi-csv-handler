@@ -150,7 +150,7 @@ void CSVParser::parse_received(const std::string &file_location, Database &datab
                         MessageReceived& messageReceived = vehicle.create_message_received(received_sim_time, station_id, std::stol(sm.str(1)));
                         std::cout << "Created Message Received: "<< corresponding_message.get_position().get_simulation_time() << " " <<  messageReceived.get_simulation_time() << std::endl;
                         corresponding_message.add_message_received(messageReceived);
-                        messageReceived.set_message_sent(corresponding_message);
+                        messageReceived.set_message_sent(database.get_vehicle(std::stol(sm.str(1))).get_message_sent(temp, std::stof(sm.str(2))));
                     }
                 }
             }
