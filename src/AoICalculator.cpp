@@ -108,7 +108,7 @@ float AoICalculator::compute_distance(const Position& pos1, const Position& pos2
 void AoICalculator::compute_and_dump_values(Database& db, const std::string& folder){
     std::map<long, std::list<long>> pairs = db.make_pairs();
     for (const auto& vehicles : pairs){
-        for(const int& vehicles2 : vehicles.second){
+        for(const long& vehicles2 : vehicles.second){
             Vehicle& vehicle_a = db.get_vehicle(vehicles.first);
             Vehicle& vehicle_b = db.get_vehicle(vehicles2);
             std::map<float, float> aoi = compute_aoi(vehicle_a, vehicle_b);
