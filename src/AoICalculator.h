@@ -18,6 +18,7 @@ public:
 private:
     Position predict_position(float timepoint, const Position& position);
     float compute_distance(const Position& pos1, const Position& pos2);
+    float calc_gps_distance(float latitud1, float longitud1, float latitud2, float longitud2);
     void dump_values(const std::map<float,float>& values, const std::string& file_name);
 };
 

@@ -5,7 +5,10 @@
 #include "AoICalculator.h"
 #include <cmath>
 #include <iostream>
-
+#include <algorithm>
+#define PI 3.14159265358979323846
+#define RADIO_TERRESTRE 6372797.56085
+#define GRADOS_RADIANES PI / 180
 
 AoICalculator::AoICalculator() {}
 
@@ -91,7 +94,9 @@ Position AoICalculator::predict_position(float timepoint, const Position& positi
 }
 
 float AoICalculator::compute_distance(const Position& pos1, const Position& pos2) {
-    return std::sqrt( (pos1.get_x()-pos2.get_x())*(pos1.get_x()-pos2.get_x())+(pos1.get_y()-pos2.get_y())*(pos1.get_y()-pos2.get_y()));
+    /*float x_to_2 = std::pow(pos1.get_x()-pos2.get_x(),2.0);
+    float y_to_2 = std::pow(pos1.get_y()-pos2.get_y(),2.0);*/
+    return calc_gps_distance(pos1.get_latitude(), pos1.get_longitude(), pos2.get_latitude(), pos2.get_longitude());
 }
 
 
@@ -124,4 +129,23 @@ void AoICalculator::dump_values(const std::map<float,float>& values, const std::
     }
     file_stream.close();
 
+}
+
+
+float AoICalculator::calc_gps_distance(float latitud1, float longitud1, float latitud2, float longitud2){
+    using namespace std;
+    double haversine;
+    double temp;
+    double distancia_puntos;
+
+    latitud1  = latitud1  * GRADOS_RADIANES;
+    longitud1 = longitud1 * GRADOS_RADIANES;
+    latitud2  = latitud2  * GRADOS_RADIANES;
+    longitud2 = longitud2 * GRADOS_RADIANES;
+
+    haversine = (pow(sin((1.0 / 2) * (latitud2 - latitud1)), 2)) + ((cos(latitud1)) * (cos(latitud2)) * (pow(sin((1.0 / 2) * (longitud2 - longitud1)), 2)));
+    temp = 2 * asin(min(1.0, sqrt(haversine)));
+    distancia_puntos = RADIO_TERRESTRE * temp;
+
+    return distancia_puntos;
 }
