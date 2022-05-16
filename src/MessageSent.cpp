@@ -5,7 +5,6 @@
 #include "MessageSent.h"
 #include "MessageReceived.h"
 
-//MessageSent::MessageSent(){}
 MessageSent::MessageSent(float etsi_t, Position pos) :
         position(pos), etsi_time(etsi_t){}
 
