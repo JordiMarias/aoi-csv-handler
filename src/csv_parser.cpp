@@ -100,7 +100,9 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                     std::cout << "Cam sent " << sm.str(16) << std::endl;
                     if (sm.str(16) == "1"){
                         std::cout << "Checking for a sent one" << std::endl;
+                        std::cout << "before" << std::endl;
                         std::cout << sm_f.str(1) << std::endl;
+                        std::cout << "After"<< std::endl;
                         int sent_time_index = (int)(std::stod(sm_f.str(1).substr(0,8))*std::pow(10, 5));
                         if (sent_file_map.find(sent_time_index) != sent_file_map.end()){
                             std::cout << "Adding sentMessage" << std::endl;
