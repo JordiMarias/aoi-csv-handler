@@ -17,8 +17,8 @@ MessageSent& Vehicle::create_message_sent(Position position, float etsi_time) {
     return messages_sent.back();
 }
 
-MessageReceived& Vehicle::create_message_received(float simulation_time, long source_station_id, long origin_station_id, MessageSent& message_sent){
-    messages_received.insert(messages_received.end(), MessageReceived(simulation_time, source_station_id,origin_station_id, message_sent));
+MessageReceived& Vehicle::create_message_received(float simulation_time, long destiny_station_id, long origin_station_id, MessageSent& message_sent){
+    messages_received.insert(messages_received.end(), MessageReceived(simulation_time, destiny_station_id, origin_station_id, message_sent));
     return messages_received.back();
 }
 

@@ -43,5 +43,5 @@ void MessageSent::complete_position(Position pos) {
 }
 
 void MessageSent::add_message_received(MessageReceived &messageReceived) {
-    message_received_.insert(std::make_pair(messageReceived.get_source_station_id(), &messageReceived));
+    message_received_.insert(std::make_pair(messageReceived.get_destiny_station_id(), &messageReceived));
 }
