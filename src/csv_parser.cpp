@@ -98,16 +98,10 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(14)),
                                                  std::stof(sm.str(15)));
 
-                    std::cout << "Cam sent " << sm.str(16) << std::endl;
-                    std::cout << line << std::endl;
                     if (sm.str(16) == "1"){
-                        std::cout << "Checking for a sent one" << std::endl;
-                        std::cout << "before" << std::endl;
-                        std::cout << sm.str(1) << std::endl;
-                        std::cout << "After"<< std::endl;
                         int sent_time_index = (int)(std::stod(sm.str(1).substr(0,8))*std::pow(10, 5));
                         if (sent_file_map.find(sent_time_index) != sent_file_map.end()){
-                            std::cout << "Adding sentMessage" << std::endl;
+                            std::cout << "Adding Sent Message" << std::endl;
                             float etsi_time = sent_file_map[sent_time_index];
                             vehicle.create_message_sent(position, etsi_time);
                         }
