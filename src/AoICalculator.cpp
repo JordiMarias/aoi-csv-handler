@@ -40,24 +40,18 @@ std::map<float, float> AoICalculator::compute_aoi(const Vehicle& vehicle_a, cons
 }
 
 std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, const Vehicle& vehicle_b){
-    std::cout << "Starting to comupte pAoI" << std::endl;
     std::map<float, float> to_return;
     std::list<const MessageReceived*> messages_recv = vehicle_b.get_messages_received_from(vehicle_a.get_station_id());
     if (messages_recv.size()>2){
-        std::cout << "decent amount of messages received" << std::endl;
         float starting_point = messages_recv.front()->get_simulation_time();
         starting_point = std::round(starting_point*100)/100+0.1;
-        std::cout << "After starting point" << std::endl;
         const std::list<Position>& positions = vehicle_a.get_positions();
         std::list<Position>::const_iterator pos_iterator = positions.begin();
-        std::cout << "now we have the const iterator" << std::endl;
         float temp_sim_time = 0;
         while (temp_sim_time<starting_point && pos_iterator!=positions.end()){
             ++pos_iterator;
             temp_sim_time =(*pos_iterator).get_simulation_time();
         }
-        std::cout << "End putting the iterator to the right place" << std::endl;
-        std::cout << "Computing pAoI" << std::endl;
         std::list<const MessageReceived*>::iterator it =messages_recv.begin();
         std::list<const MessageReceived*>::iterator itend =messages_recv.end();
         --itend;
@@ -66,16 +60,16 @@ std::map<float, float> AoICalculator::compute_paoi(const Vehicle& vehicle_a, con
             ++it;
             const MessageReceived* new_message = *it;
             --it;
+            const Position& actual_postition = *pos_iterator;
+            std::cout << actual_postition.get_simulation_time() << std::endl;
             if(pos_iterator->get_simulation_time()<new_message->get_simulation_time()){
                 const Position& sent_position = current_message->get_message_send().get_position();
-                const Position& actual_postition = *pos_iterator;
                 float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
                 Position predicted = predict_position(aoi, sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
                 to_return.insert(std::make_pair(pos_iterator->get_simulation_time(), paoi));
             }else {
                 const Position& sent_position = new_message->get_message_send().get_position();
-                const Position& actual_postition = *pos_iterator;
                 float aoi = actual_postition.get_simulation_time()-sent_position.get_simulation_time();
                 Position predicted = predict_position(aoi, sent_position);
                 float paoi = compute_distance(actual_postition, predicted);
