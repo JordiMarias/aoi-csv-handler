@@ -94,9 +94,9 @@ void CSVParser::parse_sent_positioned(const std::string& file_sent,const std::st
                                                  std::stof(sm.str(7)),
                                                  std::stof(sm.str(8)),
                                                  std::stof(sm.str(11)),
+                                                 std::stof(sm.str(12)),
                                                  std::stof(sm.str(13)),
-                                                 std::stof(sm.str(14)),
-                                                 std::stof(sm.str(15)));
+                                                 std::stof(sm.str(14)));
                     vehicle.add_real_position(position);
                     if (sm.str(16) == "1"){
                         int sent_time_index = (int)(std::stod(sm.str(1).substr(0,8))*std::pow(10, 5));
